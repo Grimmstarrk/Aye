@@ -13,8 +13,6 @@ member.guild.channels.find("name", "home").send(member.toString() + " Welcome Ni
        member.addRole(member.guild.roles.find("name", "Online")); //Auto Role\\
 });
 
-
-  
 bot.on('guildMemberAdd', member => { //Join Log\\
 let guild = member.guild; 
 const user = member.user
@@ -39,13 +37,11 @@ bot.on('guildMemberRemove', member => { //Leave Log\\
 
 });
 
-
 bot.on("message", function(msg) {
     if (msg.author.equals(bot.user)) return;
     if (!msg.content.startsWith(settings.PREFIX)) return;
     var args = msg.content.substring(settings.PREFIX.length).split(" ");
        
-
     switch (args[0].toLowerCase()) {
         case "ping": //Ping Command\\
              msg.channel.send(":ping_pong:"); 
@@ -61,9 +57,19 @@ bot.on("message", function(msg) {
             msg.channel.send("Fuck on me!");
              break;
 
-             
-
-
+        case "rules": //Rules Command\\
+            var embed = new Discord.RichEmbed()
+                 .setThumbnail("https://cdn.discordapp.com/attachments/277917366619471883/331539237105041410/image.png")
+                 .addField("Rule 1", "No Advertising! Do not join the server to promote your content.")
+                 .addField("Rule 2", "No spamming or flooding the chat with messages.")
+                 .addField("Rule 3", "No annoying, loud or high pitch noises in Voice Chat.")
+                 .addField("Rule 4", "Refrain from speaking in the wrong chats.")
+                 .addField("Rule 5", "No adult (18+), Hentai, explicit, messages.(Ask to join the NFSW Channel, we got it)")
+                 .addField("Rule 6", "@Support tag can be used for questions/tech support")
+                 .setFooter("These rules are subject to change. We'll change them up if the situation requires it so please check back occasionally.")
+                 .setColor(0x02ff9a)
+             msg.channel.send({embed:embed})
+             break;
     }   
 });
              
