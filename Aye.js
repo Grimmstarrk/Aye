@@ -7,6 +7,12 @@ bot.on('ready', function () {
   console.log(`Online`); //Bot message saying "Online"\\
 });
 
+bot.on("guildMemberAdd", function(member) {
+member.guild.channels.find("name", "home").send(member.toString() + " Welcome Ni:b::b:a "); //Welcome Message\\
+
+       member.addRole(member.guild.roles.find("name", "Online")); //Auto Role\\
+});
+
 bot.on("message", function(msg) {
     if (msg.author.equals(bot.user)) return;
     if (!msg.content.startsWith(settings.PREFIX)) return;
@@ -22,9 +28,15 @@ bot.on("message", function(msg) {
              msg.channel.send("Wait a minute... aren't I supposed to say that?!");
              break;
        
+
+
         case "lookatme": //Lookatme Command\\
             msg.channel.send("Fuck on me!");
              break;
+
+             
+
+
     }   
 });
              
