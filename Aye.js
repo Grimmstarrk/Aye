@@ -9,8 +9,7 @@ bot.on('ready', function () {
 
 bot.on("guildMemberAdd", function(member) {
 member.guild.channels.find("name", "home").send(member.toString() + " Welcome Ni:b::b:a "); //Welcome Message\\
-
-       member.addRole(member.guild.roles.find("name", "Online")); //Auto Role\\
+member.addRole(member.guild.roles.find("name", "Online")); //Auto Role\\
 });
 
 bot.on('guildMemberAdd', member => { //Join Log\\
@@ -22,7 +21,6 @@ const embed = new Discord.RichEmbed()
 .setFooter("User joined") 
 .setTimestamp()               //log channel\\  
 guild.channels.find("name", "security_cameras").send({embed});
-
 });
 
 bot.on('guildMemberRemove', member => { //Leave Log\\
@@ -34,7 +32,6 @@ bot.on('guildMemberRemove', member => { //Leave Log\\
   .setFooter("User left")
   .setTimestamp()               //log channel\\
   guild.channels.find("name", "security_cameras").send({embed});
-
 });
 
 bot.on("message", function(msg) {
@@ -51,8 +48,6 @@ bot.on("message", function(msg) {
              msg.channel.send("Wait a minute... aren't I supposed to say that?!");
              break;
        
-
-
         case "lookatme": //Lookatme Command\\
             msg.channel.send("Fuck on me!");
              break;
@@ -70,6 +65,48 @@ bot.on("message", function(msg) {
                  .setColor(0x02ff9a)
              msg.channel.send({embed:embed})
              break;
+
+        case "rule1": //Rule1 Command\\
+             var embed = new Discord.RichEmbed()
+                 .addField("Rule 1", "No Advertising! Do not join the server to promote your content.")
+                 .setColor(0x02ff9a)
+                 msg.channel.send({embed:embed})
+                 break;
+
+        case "rule2": //Rule2 Command\\
+             var embed = new Discord.RichEmbed()
+                 .addField("Rule 2", "No spamming or flooding the chat with messages.")
+                 .setColor(0x02ff9a)
+                 msg.channel.send({embed:embed})
+                 break;
+
+        case "rule3": //Rule4 Command\\
+             var embed = new Discord.RichEmbed()
+                 .addField("Rule 3", "No annoying, loud or high pitch noises in Voice Chat.")
+                 .setColor(0x02ff9a)
+                 msg.channel.send({embed:embed})
+                 break;
+
+        case "rule4": //Rule4 Command\\
+             var embed = new Discord.RichEmbed()
+                 .addField("Rule 4", "Refrain from speaking in the wrong chats.")
+                 .setColor(0x02ff9a)
+                 msg.channel.send({embed:embed})
+                 break;
+
+        case "rule5": //Rule5 Command\\
+             var embed = new Discord.RichEmbed()
+                 .addField("Rule 5", "No adult (18+), Hentai, explicit, messages.(Ask to join the NFSW Channel, we got it)")
+                 .setColor(0x02ff9a)
+                 msg.channel.send({embed:embed})
+                 break;
+
+        case "rule6"://Rule6 Command\\
+             var embed = new Discord.RichEmbed()
+                 .addField("Rule 6", "@Support tag can be used for questions/tech support")
+                 .setColor(0x02ff9a)
+                 msg.channel.send({embed:embed})
+                 break;
     }   
 });
              
