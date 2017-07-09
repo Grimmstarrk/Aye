@@ -1,0 +1,2 @@
+nodemon Aye.js
+PAUSE
