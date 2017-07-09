@@ -13,6 +13,33 @@ member.guild.channels.find("name", "home").send(member.toString() + " Welcome Ni
        member.addRole(member.guild.roles.find("name", "Online")); //Auto Role\\
 });
 
+
+  
+bot.on('guildMemberAdd', member => { //Join Log\\
+let guild = member.guild; 
+const user = member.user
+const embed = new Discord.RichEmbed() 
+.setAuthor(user.tag +" ("+ user.id +")", user.displayAvatarURL)
+.setColor(0x96ff00)
+.setFooter("User joined") 
+.setTimestamp()               //log channel\\  
+guild.channels.find("name", "security_cameras").send({embed});
+
+});
+
+bot.on('guildMemberRemove', member => { //Leave Log\\
+  let guild = member.guild;
+  const user = member.user
+  const embed = new Discord.RichEmbed()
+  .setAuthor(user.tag +" ("+ user.id +")", user.displayAvatarURL)
+  .setColor(0xff1a00)
+  .setFooter("User left")
+  .setTimestamp()               //log channel\\
+  guild.channels.find("name", "security_cameras").send({embed});
+
+});
+
+
 bot.on("message", function(msg) {
     if (msg.author.equals(bot.user)) return;
     if (!msg.content.startsWith(settings.PREFIX)) return;
