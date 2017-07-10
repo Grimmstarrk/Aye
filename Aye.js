@@ -4,6 +4,7 @@ const bot = new Discord.Client();
 bot.login(settings.TOKEN);
 
 bot.on('ready', function () { 
+    //bot.user.setGame('game title')\\
   console.log(`Online`); //Bot message saying "Online"\\
 });
 
@@ -19,7 +20,7 @@ const embed = new Discord.RichEmbed()
 .setAuthor(user.tag +" ("+ user.id +")", user.displayAvatarURL)
 .setColor(0x96ff00)
 .setFooter("User joined") 
-.setTimestamp()               //log channel\\  
+.setTimestamp()               
 guild.channels.find("name", "security_cameras").send({embed});
 });
 
@@ -30,7 +31,7 @@ bot.on('guildMemberRemove', member => { //Leave Log\\
   .setAuthor(user.tag +" ("+ user.id +")", user.displayAvatarURL)
   .setColor(0xff1a00)
   .setFooter("User left")
-  .setTimestamp()               //log channel\\
+  .setTimestamp()               
   guild.channels.find("name", "security_cameras").send({embed});
 });
 
@@ -52,61 +53,72 @@ bot.on("message", function(msg) {
             msg.channel.send("Fuck on me!");
              break;
 
-        case "rules": //Rules Command\\
+        case "laws": //Laws Command\\
             var embed = new Discord.RichEmbed()
-                 .setThumbnail("https://cdn.discordapp.com/attachments/277917366619471883/331539237105041410/image.png")
-                 .addField("Rule 1", "No Advertising! Do not join the server to promote your content.")
-                 .addField("Rule 2", "No spamming or flooding the chat with messages.")
-                 .addField("Rule 3", "No annoying, loud or high pitch noises in Voice Chat.")
-                 .addField("Rule 4", "Refrain from speaking in the wrong chats.")
-                 .addField("Rule 5", "No adult (18+), Hentai, explicit, messages.(Ask to join the NFSW Channel, we got it)")
-                 .addField("Rule 6", "@Support tag can be used for questions/tech support")
-                 .setFooter("These rules are subject to change. We'll change them up if the situation requires it so please check back occasionally.")
-                 .setColor(0x02ff9a)
+                .setThumbnail(msg.guild.iconURL)
+                .addField("Law 1", "No Advertising! Do not join the server to promote your content.")
+                .addField("Law 2", "No spamming or flooding the chat with messages.")
+                .addField("Law 3", "No annoying, loud or high pitch noises in Voice Chat.")
+                .addField("Law 4", "Refrain from speaking in the wrong chats.")
+                .addField("Law 5", "No adult (18+), Hentai, explicit, messages.(Ask to join the NFSW Channel, we got it)")
+                .addField("Law 6", "@Support tag can be used for questions/tech support")
+                .setFooter("These laws are subject to change. We'll change them up if the situation requires it so please check back occasionally.")
+                .setColor(0x02ff9a)
              msg.channel.send({embed:embed})
              break;
 
-        case "rule1": //Rule1 Command\\
+        case "law1": //Law1 Command\\
              var embed = new Discord.RichEmbed()
-                 .addField("Rule 1", "No Advertising! Do not join the server to promote your content.")
+                 .addField("Law 1", "No Advertising! Do not join the server to promote your content.")
                  .setColor(0x02ff9a)
                  msg.channel.send({embed:embed})
                  break;
 
-        case "rule2": //Rule2 Command\\
+        case "law2": //Law2 Command\\
              var embed = new Discord.RichEmbed()
-                 .addField("Rule 2", "No spamming or flooding the chat with messages.")
+                 .addField("Law 2", "No spamming or flooding the chat with messages.")
                  .setColor(0x02ff9a)
                  msg.channel.send({embed:embed})
                  break;
 
-        case "rule3": //Rule4 Command\\
+        case "law3": //Law4 Command\\
              var embed = new Discord.RichEmbed()
-                 .addField("Rule 3", "No annoying, loud or high pitch noises in Voice Chat.")
+                 .addField("Law 3", "No annoying, loud or high pitch noises in Voice Chat.")
                  .setColor(0x02ff9a)
                  msg.channel.send({embed:embed})
                  break;
 
-        case "rule4": //Rule4 Command\\
+        case "law4": //Law4 Command\\
              var embed = new Discord.RichEmbed()
-                 .addField("Rule 4", "Refrain from speaking in the wrong chats.")
+                 .addField("Law 4", "Refrain from speaking in the wrong chats.")
                  .setColor(0x02ff9a)
                  msg.channel.send({embed:embed})
                  break;
 
-        case "rule5": //Rule5 Command\\
+        case "law5": //Law5 Command\\
              var embed = new Discord.RichEmbed()
-                 .addField("Rule 5", "No adult (18+), Hentai, explicit, messages.(Ask to join the NFSW Channel, we got it)")
+                 .addField("Law 5", "No adult (18+), Hentai, explicit, messages.(Ask to join the NFSW Channel, we got it)")
                  .setColor(0x02ff9a)
                  msg.channel.send({embed:embed})
                  break;
 
-        case "rule6"://Rule6 Command\\
+        case "law6"://Law6 Command\\
              var embed = new Discord.RichEmbed()
-                 .addField("Rule 6", "@Support tag can be used for questions/tech support")
+                 .addField("Law 6", "@Support tag can be used for questions/tech support")
+                 .setColor(0x02ff9a)
+                 msg.channel.send({embed:embed})
+                 break;
+        
+        case "server": //Server Command\\
+             var embed = new Discord.RichEmbed()
+                 .setThumbnail(msg.guild.iconURL)
+                 .addField("Members", msg.guild.memberCount)
+                 .addField("Owner", msg.guild.owner)
+                 .addField("Bot", msg.guild.me)
                  .setColor(0x02ff9a)
                  msg.channel.send({embed:embed})
                  break;
     }   
 });
+
              
