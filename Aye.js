@@ -19,7 +19,7 @@ const user = member.user
 const embed = new Discord.RichEmbed() 
 .setAuthor(user.tag +" ("+ user.id +")", user.displayAvatarURL)
 .setColor(0x96ff00)
-.setFooter("User joined") 
+.setFooter("User joined" +" #"+ guild.memberCount) 
 .setTimestamp()               
 guild.channels.find("name", "security_cameras").send({embed});
 });
@@ -30,7 +30,7 @@ bot.on('guildMemberRemove', member => { //Leave Log\\
   const embed = new Discord.RichEmbed()
   .setAuthor(user.tag +" ("+ user.id +")", user.displayAvatarURL)
   .setColor(0xff1a00)
-  .setFooter("User left")
+  .setFooter("User joined" +" #"+ guild.memberCount)
   .setTimestamp()               
   guild.channels.find("name", "security_cameras").send({embed});
 });
@@ -42,16 +42,20 @@ bot.on("message", function(msg) {
        
     switch (args[0].toLowerCase()) {
         case "ping": //Ping Command\\
-             msg.channel.send(":ping_pong:"); 
-             break;
+              msg.channel.send(":ping_pong:"); 
+              break;
         
         case "pong": //Pong Command\\
-             msg.channel.send("Wait a minute... aren't I supposed to say that?!");
-             break;
+              msg.channel.send("Wait a minute... aren't I supposed to say that?!");
+              break;
        
         case "lookatme": //Lookatme Command\\
-            msg.channel.send("Fuck on me!");
-             break;
+              msg.channel.send("Fuck on me!");
+              break;
+    
+        case "help":
+              msg.channel.send("yea i still need to make that....")
+              break;
 
         case "laws": //Laws Command\\
             var embed = new Discord.RichEmbed()
@@ -113,12 +117,13 @@ bot.on("message", function(msg) {
              var embed = new Discord.RichEmbed()
                  .setThumbnail(msg.guild.iconURL)
                  .addField("Members", msg.guild.memberCount)
-                 .addField("Owner", msg.guild.owner)
-                 .addField("Bot", msg.guild.me)
+                 .addField("Region", "Chernobyl")   
+                 .addField("Server Owner", msg.guild.owner.user.tag)        
+                 .setFooter("Server info:" +" "+ msg.guild.name)
                  .setColor(0x02ff9a)
                  msg.channel.send({embed:embed})
                  break;
-    }   
+   }   
 });
 
              
