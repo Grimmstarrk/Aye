@@ -42,7 +42,9 @@ bot.on("message", function(msg) {
        
     switch (args[0].toLowerCase()) {
         case "ping": //Ping Command\\
+              msg.delete();
               msg.channel.send(":ping_pong:"); 
+              
               break;
         
         case "pong": //Pong Command\\
@@ -53,9 +55,28 @@ bot.on("message", function(msg) {
               msg.channel.send("Fuck on me!");
               break;
     
-        case "help":
+        case "help": //Help Command\\
               msg.channel.send("yea i still need to make that....")
               break;
+
+        case "say": { //Say Command\\
+              if (args.length === 1) {
+              msg.channel.send("you're doing it wrong") 
+              } else {
+              msg.channel.send(args.join(" ").substring(4))
+              }
+              break;
+              }             
+
+        case "sayd": { //Say/Delete Command\\
+              msg.delete();
+              if (args.length === 1) {
+              msg.channel.send("you're doing it wrong") 
+              } else {
+              msg.channel.send(args.join(" ").substring(4))
+              }
+              break;
+              }             
 
         case "laws": //Laws Command\\
             var embed = new Discord.RichEmbed()
