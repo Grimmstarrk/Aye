@@ -1,7 +1,8 @@
 const settings = require("./settings.json");
     const Discord = require("discord.js");
         const bot = new Discord.Client();
-            bot.login(settings.TOKEN);
+            const ms = require("ms");
+                bot.login(settings.TOKEN);
 
 bot.on('ready', function () { 
     //bot.user.setGame('game title')
@@ -42,35 +43,53 @@ bot.on("message", function(msg) {
 
 switch (args[0].toLowerCase()) {
 
-    case "ping": //Ping Command
+    case "ping": msg.delete(); //Ping Command
         msg.channel.send(":ping_pong:"); 
         break;
 
-    case "pong": //Pong Command
-        msg.channel.send("Wait a minute... aren't I supposed to say that?!");
+    case "smug": msg.delete(); //Smug Command
+        msg.channel.send("", {file: `./smug/smug${Math.round(Math.random() * 11)}.png`});
         break;
 
-    case "lookatme": //Lookatme Command
-        msg.channel.send("Fuck on me!");
+    case "wtf": msg.delete(); //Smug Command
+        msg.channel.send("", {file: `./wtf/wtf${Math.round(Math.random() * 1)}.png`});
         break;
 
-    case "help": //Help Command
-        msg.channel.send("yea i still need to make that....")
+    case "wtf!": msg.delete(); //Smug Command
+        msg.channel.send("", {file: `./wtf!/wtf!${Math.round(Math.random() * 1)}.png`});
         break;
 
+    
     case "say": msg.delete(); { //Say Command
         if (args.length === 1) {
             msg.channel.send(" ```!say (messsage)``` ")
-            } else {
+        } else {
             msg.channel.send(args.join(" ").substring(4))
-   }        break;
-}             
+    }       break;
+}
 
-    case 'purge': msg.delete() //Purge Command
-        if(!msg.member.permissions.has("MANAGE_MESSAGES")) return;
+    case 'purge': msg.delete() //Purge Command (2-100)
+        if(!msg.member.permissions.has("MANAGE_MESSAGES")) return msg.reply("you're not a Mod bud.")
             let messagecount = msg.content.split(" ")[1];
-                msg.channel.fetchMessages({limit: messagecount}).then(messages => msg.channel.bulkDelete(messages));
-                break;
+                msg.channel.fetchMessages({limit: messagecount}).then(mMessages => msg.channel.bulkDelete(mMessages));
+                break; 
+
+    case "mute": //Mute Command
+        if(!msg.member.permissions.has("MANAGE_MESSAGES")) return;
+        let member = msg.mentions.members.first()
+        if(!member) return msg.reply("you havem't mentioned a user!")
+        let muteRole = msg.guild.roles.find("name", "Muted")
+        if(!muteRole) return msg.reply("you're not a mod.")
+        let params = msg.content.split(" ").slice(1)
+        let time = params[1]
+        if(!time) return msg.reply("there is no time specified.")          
+        member.addRole(muteRole.id);
+        msg.channel.send(`you've been muted for ${ms(ms(time), {long: true})}`);
+        setTimeout(function() {
+        member.removeRole(muteRole.id);
+        msg.channel.send(`you've been unmuted! muted time: ${ms(ms(time), {long: true})}`)
+        }, ms(time));
+        break;
 
     case "laws": //Laws Command
         var embed = new Discord.RichEmbed()
@@ -79,7 +98,7 @@ switch (args[0].toLowerCase()) {
             .addField("Law 2", "No spamming or flooding the chat with messages.")
             .addField("Law 3", "No annoying, loud or high pitch noises in Voice Chat.")
             .addField("Law 4", "Refrain from speaking in the wrong chats.")
-            .addField("Law 5", "No adult (18+), Hentai, explicit, messages.(Ask to join the NFSW Channel, we got it)")
+            .addField("Law 5", "No adult (18+), Hentai, Explicit messages.(Ask to join the NFSW Channel, we got it)")
             .setFooter("These laws are subject to change. We'll change them up if the situation requires it so please check back occasionally.")
             .setColor("#02ff9a")
         msg.channel.send({embed})
@@ -115,7 +134,7 @@ switch (args[0].toLowerCase()) {
 
     case "law5": //Law5 Command
         var embed = new Discord.RichEmbed()
-            .addField("Law 5", "No adult (18+), Hentai, explicit, messages.(Ask to join the NFSW Channel, we got it)")
+            .addField("Law 5", "No adult (18+), Hentai, Explicit messages.(Ask to join the NFSW Channel, we got it)")
             .setColor("#02ff9a")
         msg.channel.send({embed})
         break;
@@ -130,14 +149,21 @@ switch (args[0].toLowerCase()) {
         break;           
 
     case "stats": //Stats Command
-        var pms = require("pretty-ms");
-            var ms = require("ms")      
-                var embed = new Discord.RichEmbed()
-                    .setThumbnail(bot.user.avatarURL)
-                    .setTitle("» Aye's Info")    
-                    .setDescription(`➽**Total guilds**: ${bot.guilds.size}\n➽**Total users**: ${bot.users.size}\n➽**Total channels**: ${bot.channels.size}\n➽**Gender**: Fighter jet\n➽**Up time**:` +" "+ pms(bot.uptime, {verbose: true}))
-                    .setColor("#e8f441")
-                msg.channel.send({embed})
-                break;
+        var pms = require("pretty-ms");      
+            var embed = new Discord.RichEmbed()
+                .setThumbnail(bot.user.avatarURL)
+                .setTitle("» Aye's Info")    
+                .setDescription(`➽**Total guilds**: ${bot.guilds.size}\n➽**Total users**: ${bot.users.size}\n➽**Total channels**: ${bot.channels.size}\n➽**Gender**: Fighter jet\n➽**Up time**:` +" "+ pms(bot.uptime, {verbose: true}))
+                .setColor("#e8f441")
+            msg.channel.send({embed})
+            break;
+
+    case "help": //Server Command
+        var embed = new Discord.RichEmbed()          
+            .setTitle("» Commands")
+            .setDescription("**Ping**: Pings the bot\n**Pong**: Pongs the bot\n**Server**: Shows server information\n**Stats**: Shows Aye's information\n**Say** *(message)*: Makes the bot say the message\n**Smug**: Posts a random smug anime face\n**Wtf**: Posts a random shocked wtf anime face\n**Wtf!**: Posts a random even more shocked wtf anime face\n**Laws**: Posts server laws\n---------------------\n**Mods Commands**\n**Purge** (2-100): Deletes messages in bulk")
+            .setColor("#00ffd9")
+        msg.channel.send({embed})
+        break;
       }   
 });
