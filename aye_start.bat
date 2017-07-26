@@ -1,2 +1,2 @@
-nodemon Aye.js
+node Aye.js
 PAUSE
